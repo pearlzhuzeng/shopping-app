@@ -41,10 +41,11 @@ const products = [
   },
 ]
 
-type Item = {
+type Product = {
   id: string,
   name: string,
   price: number,
+  quantity: number,
 }
 
 type Quantity = {
@@ -53,9 +54,28 @@ type Quantity = {
 }
 
 class App extends Component {
+  state: { quantity: number, selections: Product[] } = {
+    quantity: null,
+    selections: [],
+  }
+
+  handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault()
+    const selections = append(
+      { quantity: this.state.quantity },
+      this.state.selections
+    )
+    this.setState({ selections })
+  }
+
   render () {
     const singleproduct = products.map(product =>
-      <CatalogItem name={product.name} price={product.price} />
+      <CatalogItem
+        name={product.name}
+        price={product.price}
+        id={product.id}
+        onSubmit={this.handleSubmit}
+      />
     )
     const rows = append(singleproduct, [])
 
@@ -70,6 +90,7 @@ class App extends Component {
                 <tr>
                   <th>Name</th>
                   <th>Price</th>
+                  <th>Quantity</th>
                 </tr>
               </thead>
               <tbody>{rows}</tbody>
@@ -108,12 +129,34 @@ const Cart = styled.div`
 export default App
 
 class CatalogItem extends Component {
+  handleSubmit = () => {
+    const { id, onSubmit } = this.props
+    onSubmit(id)
+  }
+
   render () {
     const { name, price } = this.props
     return (
       <tr>
         <td>{name}</td>
         <td>${price}</td>
+        <td>
+          <select name="qty">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+          <button type="submit" onSubmit={this.handleSubmit}>
+            Add to cart
+          </button>
+        </td>
       </tr>
     )
   }
