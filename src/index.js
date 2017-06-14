@@ -4,5 +4,7 @@ import App from './App.jsx'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+import products from './products.js'
+
+ReactDOM.render(<App products={products} />, document.getElementById('root'))
 registerServiceWorker()
