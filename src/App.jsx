@@ -4,86 +4,42 @@
  */
 
 import React, { Component } from 'react'
-import { append } from 'ramda'
+import { values } from 'ramda'
 import styled from 'styled-components'
-import './App.css'
 
-const products = [
-  {
-    id: 'computer',
-    name: 'computer',
-    price: 2000,
-  },
-  {
-    id: 'mouse',
-    name: 'mouse',
-    price: 80,
-  },
-  {
-    id: 'trackpad',
-    name: 'trackpad',
-    price: 130,
-  },
-  {
-    id: 'keyboard',
-    name: 'keyboard',
-    price: 100,
-  },
-  {
-    id: 'bag',
-    name: 'bag',
-    price: 100,
-  },
-  {
-    id: 'charger',
-    name: 'charger',
-    price: 30,
-  },
-]
+import CatalogItem from './CatalogItem'
+import CartItem from './CartItem'
 
-type Product = {
-  id: string,
-  name: string,
-  price: number,
-  quantity: number,
-}
+import type { Catalog, Cart } from './schema'
 
-type Quantity = {
-  id: string,
-  quantity: number,
-}
+type Props = { products: Catalog }
+type State = { selections: Cart }
 
 class App extends Component {
-  state: { quantity: number, selections: Product[] } = {
-    quantity: null,
-    selections: [],
+  props: Props
+  state: State = {
+    selections: {},
   }
 
-  handleSubmit = (e: SyntheticEvent) => {
-    e.preventDefault()
-    const selections = append(
-      { quantity: this.state.quantity },
-      this.state.selections
-    )
-    this.setState({ selections })
+  handleAddItem = (id: string, quantity: number) => {
+    const { selections } = this.state
+
+    const oldQuantity = selections[id] ? selections[id].quantity : 0
+
+    this.setState({
+      selections: {
+        ...selections,
+        [id]: { productId: id, quantity: quantity + oldQuantity },
+      },
+    })
   }
 
   render () {
-    const singleproduct = products.map(product =>
-      <CatalogItem
-        name={product.name}
-        price={product.price}
-        id={product.id}
-        onSubmit={this.handleSubmit}
-      />
-    )
-    const rows = append(singleproduct, [])
-
     return (
       <div>
         <Heading>Welcome! Please select items.</Heading>
         <Container>
-          <Catalog>
+          <Section>
             <h2>Catalog</h2>
             <table>
               <thead>
@@ -93,15 +49,41 @@ class App extends Component {
                   <th>Quantity</th>
                 </tr>
               </thead>
-              <tbody>{rows}</tbody>
+              <tbody>
+                {values(this.props.products).map(product =>
+                  <CatalogItem
+                    key={product.id}
+                    {...product}
+                    onSubmit={this.handleAddItem}
+                  />
+                )}
+              </tbody>
             </table>
-          </Catalog>
-          <Cart>
+          </Section>
+          <Section>
             <h2>My Cart</h2>
-            <Selection />
-            <Selection />
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {values(this.state.selections).map(({ quantity, productId }) =>
+                  <CartItem
+                    key={productId}
+                    quantity={quantity}
+                    productId={productId}
+                    {...this.props.products[productId]}
+                  />
+                )}
+              </tbody>
+            </table>
             <Total />
-          </Cart>
+          </Section>
         </Container>
       </div>
     )
@@ -118,58 +100,14 @@ const Container = styled.div`
   margin: 0 auto;
   max-width: 50em;
 `
-const Catalog = styled.div`
-  flex: 1 1 10em
-`
-
-const Cart = styled.div`
+const Section = styled.div`
   flex: 1 1 10em
 `
 
 export default App
 
-class CatalogItem extends Component {
-  handleSubmit = () => {
-    const { id, onSubmit } = this.props
-    onSubmit(id)
-  }
-
-  render () {
-    const { name, price } = this.props
-    return (
-      <tr>
-        <td>{name}</td>
-        <td>${price}</td>
-        <td>
-          <select name="qty">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-          <button type="submit" onSubmit={this.handleSubmit}>
-            Add to cart
-          </button>
-        </td>
-      </tr>
-    )
-  }
-}
-
-class Selection extends Component {
-  render () {
-    return <p>This is a chosen item.</p>
-  }
-}
-
 class Total extends Component {
   render () {
-    return <p>Grand total</p>
+    return <p>Grand total is: {/* reduce... nnjvv */}</p>
   }
 }
