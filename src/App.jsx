@@ -4,8 +4,42 @@
  */
 
 import React, { Component } from 'react'
+import { append } from 'ramda'
 import styled from 'styled-components'
 import './App.css'
+
+const products = [
+  ('computer': {
+    id: 'computer',
+    name: 'computer',
+    price: 2000,
+  }),
+  ('mouse': {
+    id: 'mouse',
+    name: 'mouse',
+    price: 80,
+  }),
+  ('trackpad': {
+    id: 'trackpad',
+    name: 'trackpad',
+    price: 130,
+  }),
+  ('keyboard': {
+    id: 'keyboard',
+    name: 'keyboard',
+    price: 100,
+  }),
+  ('bag': {
+    id: 'bag',
+    name: 'bag',
+    price: 100,
+  }),
+  ('charger': {
+    id: 'charger',
+    name: 'charger',
+    price: 30,
+  }),
+]
 
 type Item = {
   id: string,
@@ -13,16 +47,33 @@ type Item = {
   price: number,
 }
 
+type Quantity = {
+  id: string,
+  quantity: number,
+}
+
 class App extends Component {
   render () {
+    const singleproduct = products.map(product =>
+      <CatalogItem name={product.name} price={product.price} />
+    )
+    const rows = append(singleproduct, [])
+
     return (
       <div>
         <Heading>Welcome! Please select items.</Heading>
         <Container>
           <Catalog>
             <h2>Catalog</h2>
-            <CatalogItem />
-            <CatalogItem />
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>{rows}</tbody>
+            </table>
           </Catalog>
           <Cart>
             <h2>My Cart</h2>
@@ -58,7 +109,13 @@ export default App
 
 class CatalogItem extends Component {
   render () {
-    return <p>This is a catalog item.</p>
+    const { name, price } = this.props
+    return (
+      <tr>
+        <td>{name}</td>
+        <td>{price}</td>
+      </tr>
+    )
   }
 }
 
