@@ -17,7 +17,7 @@ class CatalogItem extends Component {
   }
 
   handleChange = (e: SyntheticInputEvent) => {
-    this.setState({ quantity: e.target.valueAsNumber })
+    this.setState({ quantity: parseInt(e.target.value) })
   }
 
   handleSubmit = () => {
@@ -34,7 +34,7 @@ class CatalogItem extends Component {
         <td>{name}</td>
         <td>${price}</td>
         <td>
-          <select value={this.state.quantity} onBlur={this.handleChange}>
+          <select value={this.state.quantity} onChange={this.handleChange}>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
