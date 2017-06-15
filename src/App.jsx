@@ -86,7 +86,8 @@ class App extends Component {
               Your grand total is:
               {sum(
                 values(this.state.selections).map(
-                  selection => selection.quantity * selection.price
+                  ({ quantity, productId }) =>
+                    quantity * this.props.products[productId].price
                 )
               )}
             </p>
