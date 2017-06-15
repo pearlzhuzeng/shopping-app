@@ -21,7 +21,7 @@ class App extends Component {
     selections: {},
   }
 
-  handleAddItem = (id: string, quantity: number) => {
+  handleAddSelection = (id: string, quantity: number) => {
     const { selections } = this.state
 
     const oldQuantity = selections[id] ? selections[id].quantity : 0
@@ -30,6 +30,16 @@ class App extends Component {
       selections: {
         ...selections,
         [id]: { productId: id, quantity: quantity + oldQuantity },
+      },
+    })
+  }
+
+  handleChangeSelection = (id: string, quantity: number) => {
+    const { selections } = this.state
+    this.setState({
+      selections: {
+        ...selections,
+        [id]: { productId: id, quantity },
       },
     })
   }
@@ -54,7 +64,7 @@ class App extends Component {
                   <CatalogItem
                     key={product.id}
                     {...product}
-                    onSubmit={this.handleAddItem}
+                    onSubmit={this.handleAddSelection}
                   />
                 )}
               </tbody>
@@ -77,6 +87,7 @@ class App extends Component {
                     key={productId}
                     quantity={quantity}
                     productId={productId}
+                    onChange={this.handleChangeSelection}
                     {...this.props.products[productId]}
                   />
                 )}
