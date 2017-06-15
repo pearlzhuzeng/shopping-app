@@ -82,15 +82,17 @@ class App extends Component {
                 </tr>
               </thead>
               <tbody>
-                {values(this.state.selections).map(({ quantity, productId }) =>
-                  <CartItem
-                    key={productId}
-                    quantity={quantity}
-                    productId={productId}
-                    onChange={this.handleChangeSelection}
-                    {...this.props.products[productId]}
-                  />
-                )}
+                {values(this.state.selections)
+                  .filter(x => x.quantity > 0)
+                  .map(({ quantity, productId }) =>
+                    <CartItem
+                      key={productId}
+                      quantity={quantity}
+                      productId={productId}
+                      onChange={this.handleChangeSelection}
+                      {...this.props.products[productId]}
+                    />
+                  )}
               </tbody>
             </table>
             <p>

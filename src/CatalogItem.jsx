@@ -17,7 +17,7 @@ class CatalogItem extends Component {
   }
 
   handleChange = (e: SyntheticInputEvent) => {
-    this.setState({ quantity: parseInt(e.target.value) })
+    this.setState({ quantity: parseInt(e.target.value, 10) })
   }
 
   handleSubmit = () => {
