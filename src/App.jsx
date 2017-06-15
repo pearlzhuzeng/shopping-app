@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react'
-import { values } from 'ramda'
+import { values, sum } from 'ramda'
 import styled from 'styled-components'
 
 import CatalogItem from './CatalogItem'
@@ -82,7 +82,14 @@ class App extends Component {
                 )}
               </tbody>
             </table>
-            <Total />
+            <p>
+              Your grand total is:
+              {sum(
+                values(this.state.selections).map(
+                  selection => selection.quantity * selection.price
+                )
+              )}
+            </p>
           </Section>
         </Container>
       </div>
@@ -105,9 +112,3 @@ const Section = styled.div`
 `
 
 export default App
-
-class Total extends Component {
-  render () {
-    return <p>Grand total is: {/* reduce... nnjvv */}</p>
-  }
-}
