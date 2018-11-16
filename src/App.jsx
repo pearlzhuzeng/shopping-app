@@ -59,13 +59,13 @@ class App extends Component<Props, State> {
                 </tr>
               </thead>
               <tbody>
-                {values(this.props.products).map(product =>
+                {values(this.props.products).map(product => (
                   <CatalogItem
                     key={product.id}
                     {...product}
                     onSubmit={this.handleAddSelection}
                   />
-                )}
+                ))}
               </tbody>
             </table>
           </div>
@@ -83,7 +83,7 @@ class App extends Component<Props, State> {
               <tbody>
                 {values(this.state.selections)
                   .filter(x => x.quantity > 0)
-                  .map(({ quantity, productId }) =>
+                  .map(({ quantity, productId }) => (
                     <CartItem
                       key={productId}
                       quantity={quantity}
@@ -91,7 +91,7 @@ class App extends Component<Props, State> {
                       onChange={this.handleChangeSelection}
                       {...this.props.products[productId]}
                     />
-                  )}
+                  ))}
               </tbody>
             </table>
             <Total>
