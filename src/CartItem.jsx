@@ -25,7 +25,7 @@ class CartItem extends React.Component<Props> {
     return (
       <tr>
         <td>{name}</td>
-        <td>{price}</td>
+        <td>${price}</td>
         <td>
           <input
             type="number"
@@ -33,7 +33,7 @@ class CartItem extends React.Component<Props> {
             onChange={this.handleChangeQuantity}
           />
         </td>
-        <td>{price * quantity}</td>
+        <td>${price * quantity}</td>
       </tr>
     )
   }
