@@ -7,16 +7,21 @@ import React, { Component } from 'react'
 
 import type { Product } from './schema'
 
-class CatalogItem extends Component {
-  props: Product & {
-    onSubmit: (id: string, quantity: number) => void,
-  }
+type Props = {
+  ...Product,
+  onSubmit: (id: string, quantity: number) => void,
+}
 
-  state: { quantity: number } = {
+type State = {
+  quantity: number,
+}
+
+class CatalogItem extends Component<Props, State> {
+  state = {
     quantity: 1,
   }
 
-  handleChange = (e: SyntheticInputEvent) => {
+  handleChange = (e: SyntheticInputEvent<*>) => {
     this.setState({ quantity: parseInt(e.target.value, 10) })
   }
 

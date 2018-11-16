@@ -2,20 +2,20 @@
  * @flow
  */
 
-export type Product = {
+export type Product = {|
   id: string,
   name: string,
   price: number,
-}
+|}
 
 export type Catalog = {
   [id: string]: Product,
 }
 
-export type Selection = {
+export type Selection = {|
   productId: string,
   quantity: number,
-}
+|}
 
 export type Cart = {
   [productId: string]: Selection,

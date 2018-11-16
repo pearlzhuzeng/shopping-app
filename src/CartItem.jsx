@@ -7,16 +7,16 @@ import React from 'react'
 
 import type { Product, Selection } from './schema'
 
-type Props = Product &
-  Selection & {
-    onChange: (string, number) => void,
-  }
+type Props = {
+  ...Product,
+  ...Selection,
+  onChange: (string, number) => void,
+}
 
-class CartItem extends React.Component {
-  props: Props
+class CartItem extends React.Component<Props> {
   state = { value: this.props.quantity }
 
-  handleChangeQuantity = (e: SyntheticInputEvent) => {
+  handleChangeQuantity = (e: SyntheticInputEvent<*>) => {
     const { productId, onChange } = this.props
     onChange(productId, e.target.valueAsNumber || 0)
   }

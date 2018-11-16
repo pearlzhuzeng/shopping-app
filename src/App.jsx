@@ -15,9 +15,8 @@ import type { Catalog, Cart } from './schema'
 type Props = { products: Catalog }
 type State = { selections: Cart }
 
-class App extends Component {
-  props: Props
-  state: State = {
+class App extends Component<Props, State> {
+  state = {
     selections: {},
   }
 
