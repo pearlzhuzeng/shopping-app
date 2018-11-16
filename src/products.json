@@ -1,0 +1,32 @@
+{
+  "computer": {
+    "id": "computer",
+    "name": "Computer",
+    "price": 2000
+  },
+  "mouse": {
+    "id": "mouse",
+    "name": "Mouse",
+    "price": 80
+  },
+  "trackpad": {
+    "id": "trackpad",
+    "name": "Trackpad",
+    "price": 130
+  },
+  "keyboard": {
+    "id": "keyboard",
+    "name": "Keyboard",
+    "price": 100
+  },
+  "bag": {
+    "id": "bag",
+    "name": "Bag",
+    "price": 100
+  },
+  "charger": {
+    "id": "charger",
+    "name": "Charger",
+    "price": 30
+  }
+}
