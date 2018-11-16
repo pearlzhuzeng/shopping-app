@@ -40,16 +40,7 @@ class CatalogItem extends Component<Props, State> {
         <td>${price}</td>
         <td>
           <select value={this.state.quantity} onChange={this.handleChange}>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
+            <Options />
           </select>
           <button type="submit" onClick={this.handleSubmit}>
             Add to cart
@@ -58,6 +49,18 @@ class CatalogItem extends Component<Props, State> {
       </tr>
     )
   }
+}
+
+const Options = () => {
+  return (
+    <React.Fragment>
+      {[...Array(10)].map((_, i) => (
+        <option key={i} value={i}>
+          {i}
+        </option>
+      ))}
+    </React.Fragment>
+  )
 }
 
 export default CatalogItem
