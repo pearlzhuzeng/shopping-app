@@ -14,17 +14,9 @@ type Props = {
 }
 
 class CartItem extends React.Component<Props> {
-  state = { value: this.props.quantity }
-
   handleChangeQuantity = (e: SyntheticInputEvent<*>) => {
     const { productId, onChange } = this.props
     onChange(productId, e.target.valueAsNumber || 0)
-  }
-
-  componentWillReceiveProps (nextProps: Props) {
-    if (`${nextProps.quantity}` !== this.state.value) {
-      this.setState({ value: `${nextProps.quantity}` })
-    }
   }
 
   render () {
@@ -37,10 +29,8 @@ class CartItem extends React.Component<Props> {
         <td>
           <input
             type="number"
-            value={this.state.value}
-            onChange={(e: SyntheticInputEvent) =>
-              this.setState({ value: e.target.value })}
-            onBlur={this.handleChangeQuantity}
+            value={this.props.quantity}
+            onChange={this.handleChangeQuantity}
           />
         </td>
         <td>{price * quantity}</td>
