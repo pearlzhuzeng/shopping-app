@@ -48,7 +48,7 @@ class App extends Component<Props, State> {
       <div>
         <Heading>Welcome! Please select items.</Heading>
         <Container>
-          <Section>
+          <div>
             <h2>Catalog</h2>
             <table>
               <thead>
@@ -68,8 +68,8 @@ class App extends Component<Props, State> {
                 )}
               </tbody>
             </table>
-          </Section>
-          <Section>
+          </div>
+          <CartDisplay>
             <h2>My Cart</h2>
             <table>
               <thead>
@@ -94,16 +94,17 @@ class App extends Component<Props, State> {
                   )}
               </tbody>
             </table>
-            <p>
-              Your grand total is:
+            <Total>
+              {' '}
+              Your grand total is: $
               {sum(
                 values(this.state.selections).map(
                   ({ quantity, productId }) =>
                     quantity * this.props.products[productId].price
                 )
               )}
-            </p>
-          </Section>
+            </Total>
+          </CartDisplay>
         </Container>
       </div>
     )
@@ -116,12 +117,25 @@ const Heading = styled.h1`
 `
 
 const Container = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-gap: 3em;
   margin: 0 auto;
   max-width: 50em;
 `
-const Section = styled.div`
-  flex: 1 1 10em
+
+const CartDisplay = styled.div`
+  align-self: start;
+  background: #fffffe;
+  border-radius: 0.2em;
+  border: #ddd solid 1px;
+  padding: 0 1.5em;
+  margin-top: 2em;
+`
+
+const Total = styled.p`
+  font-weight: bold;
+  text-align: right;
 `
 
 export default App
