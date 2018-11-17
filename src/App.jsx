@@ -123,7 +123,7 @@ const Container = styled.div`
   margin: 0 auto;
   max-width: 50em;
 
-  @media (max-width: 500px) {
+  @media (max-width: 650px) {
     grid-template-columns: 1fr;
   }
 `
