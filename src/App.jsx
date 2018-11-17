@@ -122,6 +122,10 @@ const Container = styled.div`
   grid-gap: 3em;
   margin: 0 auto;
   max-width: 50em;
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const CartDisplay = styled.div`
